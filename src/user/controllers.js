@@ -9,3 +9,20 @@ exports.signUp = async (req, res) => {
     res.send({ error });
   }
 };
+
+exports.login = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      username: req.body.username,
+      password: req.body.password,
+    });
+    if (!user) {
+      throw new Error("Incorrect credentials");
+    } else {
+      res.send({ user });
+    }
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
+};
